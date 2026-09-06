@@ -17,6 +17,8 @@ These materials are a personal reading companion to the book. The goal is unders
 
 ## Start learning
 
+Read online: **[Open the learning website](https://weijen.github.io/mml/)**.
+
 Open [chapter-2/index.html](chapter-2/index.html) in a browser. Begin with [the math and English warm-up](chapter-2/00-start.html).
 
 Chapter 2 currently has 13 pages: an overview, a warm-up, 10 lessons, and a practice guide covering all 20 book exercises. The pages work offline, with no installation required.
@@ -30,3 +32,7 @@ Get your own copy from [the authors’ website](https://mml-book.com/). Place it
 ## Editing the lessons
 
 See [chapter-2/README.md](chapter-2/README.md) for the source files, build command, and checks.
+
+## Website publishing
+
+GitHub Pages publishes the `main` branch from the repository root. The root page opens the Chapter 2 overview. Pushing changes to `main` updates the website automatically. The PDF remains local and is not published.
