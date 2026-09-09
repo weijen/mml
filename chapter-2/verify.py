@@ -5,12 +5,20 @@ from urllib.parse import unquote
 from fractions import Fraction as F
 root=Path(__file__).parent
 class Links(HTMLParser):
-    def __init__(self): super().__init__(); self.links=[]; self.ids=[]
+    def __init__(self): super().__init__(); self.links=[]; self.ids=[]; self.icons=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
+        if tag=='link' and 'icon' in a.get('rel','').split():self.icons.append(a)
         if 'id' in a:self.ids.append(a['id'])
         for key in ('href','src'):
             if key in a:self.links.append(a[key])
+for path in [root.parent/'index.html', *root.glob('*.html')]:
+    parser=Links();parser.feed(path.read_text())
+    assert len(parser.icons)==1,f'Missing or duplicate favicon in {path}'
+    icon=parser.icons[0]
+    assert icon.get('type')=='image/svg+xml',path
+    assert (path.parent/icon['href']).resolve()==(root.parent/'favicon.svg').resolve(),path
+    assert (path.parent/icon['href']).is_file(),path
 for path in root.glob('*.html'):
     parser=Links();parser.feed(path.read_text())
     assert len(parser.ids)==len(set(parser.ids)),f'Duplicate ID in {path}'
